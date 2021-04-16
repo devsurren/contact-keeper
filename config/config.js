@@ -7,6 +7,7 @@ exports.connectDatabase=async()=>{
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useFindAndModify: false,
+    useCreateIndex:true
    })
   if(databaseConnected) console.log('DataBase Online');
  }

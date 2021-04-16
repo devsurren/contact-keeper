@@ -1,22 +1,33 @@
 const express = require('express');
 const moragan= require('morgan');
 const config = require('config');
+const jwt = require('jsonwebtoken');
 const{connectDatabase}=require('./config/config')
+const user = require('./model/User');
 
 //Routes
 const userRoutes=require('./routes/user');
 const authRoutes=require('./routes/auth');
 const contactRoutes=require('./routes/contact');
+const { cors }=require('./cors')
+
+//Test and Debug
+const {protectedRoute}=require('./middleware/protected')
 
 const app =  express();
 
 app.use(express.json());
 
+app.use(cors);
+
 app.use(moragan('tiny'));
 
-//Test
-app.get("/test",(req,res,next)=>{
-    res.status(200).json({msg:"Api hit Success"})
+//Test & Debug
+app.get("/api/v1/test",(req,res,next)=>{
+    res.status(200).json({msg:"Server online & Api hit Success"})
+})
+app.get("/api/v1/mdtest",(req,res,next)=>{
+  res.status(200).json({msg:"Reply from mdtest api"});
 })
 
 

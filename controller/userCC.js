@@ -9,8 +9,8 @@ exports.createUser=async(req,res,next)=>{
     const{ name,email,password }=req.body
     try {
         //Check if the user is already there 
-        const userExsist = await userModel.findOne({name});
-        if(userExsist) return res.status(400).json({success:false,msg:"User Alread There"});
+        const userExsist = await userModel.findOne({email});
+        if(userExsist) return res.status(400).json({success:false,msg:"User Already There"});
         
         //Create new user and save it
        const userCreation=await new userModel({name,email,password});
