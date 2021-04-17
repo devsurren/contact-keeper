@@ -1,7 +1,10 @@
+//NPM modules
 const express = require('express');
 const moragan= require('morgan');
 const config = require('config');
 const jwt = require('jsonwebtoken');
+
+//Cutsom modules
 const{connectDatabase}=require('./config/config')
 const user = require('./model/User');
 
@@ -11,13 +14,11 @@ const authRoutes=require('./routes/auth');
 const contactRoutes=require('./routes/contact');
 const { cors }=require('./cors')
 
-//Test and Debug
-const {protectedRoute}=require('./middleware/protected')
-
 const app =  express();
 
 app.use(express.json());
 
+//CORS
 app.use(cors);
 
 app.use(moragan('tiny'));
@@ -26,9 +27,7 @@ app.use(moragan('tiny'));
 app.get("/api/v1/test",(req,res,next)=>{
     res.status(200).json({msg:"Server online & Api hit Success"})
 })
-app.get("/api/v1/mdtest",(req,res,next)=>{
-  res.status(200).json({msg:"Reply from mdtest api"});
-})
+
 
 
 //Mounting Routes

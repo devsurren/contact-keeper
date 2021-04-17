@@ -1,8 +1,9 @@
-//Package
+//NPM Package
 const bcrypt=require('bcrypt');
 const jwt = require('jsonwebtoken');
 const config = require('config');
 
+//Cutsom modules
 const userModel=require('../model/User');
 
 exports.createUser=async(req,res,next)=>{
@@ -14,11 +15,9 @@ exports.createUser=async(req,res,next)=>{
         
         //Create new user and save it
        const userCreation=await new userModel({name,email,password});
-       await userCreation.save();
        
-       //Hashing plain text password
-       const salt =  bcrypt.genSaltSync(14);
-       userCreation.password=bcrypt.hashSync(password,salt);
+       //Saving DataBase
+         await userCreation.save();
        
        //Payload for JsonWebToken
         const payload={

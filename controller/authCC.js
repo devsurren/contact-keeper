@@ -9,11 +9,13 @@ const Usermodel=require('../model/User');
 exports.getCurrentLoggedinUser=async(req,res,next)=>{
     const token = req.header('x-auth-token');
     try{
-        const decoded = jwt.verify(token,config.get("jwt_secret"))
-        console.log(`User Id ${decoded.user.userid}`)
-        const currentuser = await Usermodel.findById({_id:decoded.user.userid})
+        //Decode User id from jwt
+        const decoded = jwt.verify(token,config.get("jwt_secret"));
+        //Finiding User in the database
+        const currentuser = await Usermodel.findById(decoded.user.id);
+        //Sending Response for Unknow User
         if(!currentuser) return res.status(404).json({msg:"user not found"});
-        console.log(currentuser);
+        //Sending Current Logged in User
         return res.status(200).json({currentuser});
     }catch(e){console.log(e.message);next();}
 }
@@ -33,7 +35,7 @@ try {
  //Payload for the user
  const payload={
      user:{
-         userid:user.id
+         id:user.id
      }
  }
  //Sending Token for logged in user

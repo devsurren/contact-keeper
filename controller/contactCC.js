@@ -1,5 +1,6 @@
 const contact=require('../model/Contact');
 
+//Getting All Contacts for Current Logged in User
 exports.getAllContacts=async(req,res,next)=>{
  try {
      const allcontacts=await contact.find({user:req.user.userid});
@@ -11,6 +12,7 @@ exports.getAllContacts=async(req,res,next)=>{
  }
 }
 
+//Creating Contact in the DataBase
 exports.createContact=async(req,res,next)=>{
     const { name,email,phone,type }=req.body;
     try{
