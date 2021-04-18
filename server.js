@@ -16,10 +16,11 @@ const { cors }=require('./cors')
 
 const app =  express();
 
-app.use(express.json());
-
 //CORS
 app.use(cors);
+
+//Body-Parser
+app.use(express.json());
 
 app.use(moragan('tiny'));
 
@@ -42,5 +43,3 @@ app.listen(config.get("port"),()=>{
     console.log(`Server Running On Port ${config.get("port")}`)
 }
 )
-
-
