@@ -1,6 +1,5 @@
 {
     "port":5000,
-    "database_uri":"mongodb+srv://DATABASE_USER_NAME:DATABASE_PASSWORD@contactkeeper.5h6jq.mongodb.net/contactkeeper?retryWrites=true&w=majority",
     "test":"test",
     "jwt_secret":"YourWebTokenSecret",
     "token_expire":360000
