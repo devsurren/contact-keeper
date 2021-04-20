@@ -25,3 +25,35 @@ exports.createContact=async(req,res,next)=>{
         console.log(e.message);
         next(); }
 }
+
+//Update Contatc in DataBase
+exports.updateContact=async(req,res,next)=>{
+
+const{_id,name,email,phone,type}=req.body;
+
+try{
+  if(!_id) return res.status(400).json({success:false,msg:"Need Resource Id"});
+  const updatedcontact=await contact.findByIdAndUpdate(_id,{name,email,phone,type});
+  if (!updatedcontact) return res.status(500).json({success:false,msg:"Updation Failed"});
+  return res.status(200).json({success:true,msg:"Contact Updated"});
+
+}catch(error){
+  console.log(error.message);
+  next();
+}
+
+}
+
+exports.deleteContact=async(req,res,next)=>{
+
+try{
+  if(!req.params.id) return res.status(400).json({success:false,msg:"Need Resource Id"});
+  const deletedcontact=await contact.findByIdAndDelete(req.params.id);
+  if (!deletedcontact) return res.status(500).json({success:false,msg:"Deletion Failed"});
+  return res.status(200).json({success:true,msg:"Contact Deletedted"});
+
+}catch(error){
+  console.log(error.message);
+  next();
+}
+}
