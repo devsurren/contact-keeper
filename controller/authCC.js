@@ -27,11 +27,11 @@ try {
       //Check user
   const user=await Usermodel.findOne({email});
   //if user not available
-  if(!user) return res.staus(400).json({msg:"Invalid User"});
+  if(!user) return res.status(400).json({msg:"Invalid User"});
   //Compare password
   const authorizedUser= bcrypt.compare(password,user.password);
   //if the user not authorized
-  if(!authorizedUser) return res.status(400).json({msg:"Username or password incorrect"});
+  if(!authorizedUser) return res.status(400).json({msg:"Username or Password Incorrect"});
  //Payload for the user
  const payload={
      user:{
@@ -49,8 +49,6 @@ try {
     console.log(error.message);
     next();
 }
-
-
 
 
 }

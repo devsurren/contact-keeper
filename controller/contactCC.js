@@ -29,11 +29,13 @@ exports.createContact=async(req,res,next)=>{
 //Update Contatc in DataBase
 exports.updateContact=async(req,res,next)=>{
 
-const{_id,name,email,phone,type}=req.body;
+const{name,email,phone,type}=req.body;
+
+console.log(req.body);
 
 try{
-  if(!_id) return res.status(400).json({success:false,msg:"Need Resource Id"});
-  const updatedcontact=await contact.findByIdAndUpdate(_id,{name,email,phone,type});
+  if(!req.params.id) return res.status(400).json({success:false,msg:"Need Resource Id"});
+  const updatedcontact=await contact.findByIdAndUpdate(req.params.id,{name,email,phone,type});
   if (!updatedcontact) return res.status(500).json({success:false,msg:"Updation Failed"});
   return res.status(200).json({success:true,msg:"Contact Updated"});
 

@@ -9,16 +9,16 @@ const userModel=require('../model/User');
 exports.createUser=async(req,res,next)=>{
     const{ name,email,password }=req.body
     try {
-        //Check if the user is already there 
+        //Check if the user is already there
         const userExsist = await userModel.findOne({email});
         if(userExsist) return res.status(400).json({success:false,msg:"User Already There"});
-        
+
         //Create new user and save it
        const userCreation=await new userModel({name,email,password});
-       
+
        //Saving DataBase
          await userCreation.save();
-       
+
        //Payload for JsonWebToken
         const payload={
             user:{
@@ -30,20 +30,20 @@ exports.createUser=async(req,res,next)=>{
         jwt.sign(payload,config.get("jwt_secret"),{
             expiresIn:360000
         },(err,token)=>{
-            if(err) return res.status(400).json({success:false,msg:"Token failed"});
+            if(err) return res.status(500).json({success:false,msg:"Server Error"});
             if(token) return   res.status(201).json({
                 success:true,
                 msg:"User Created",
                 token
             })
-          
+
         });
 
     } catch (error) {
         console.log(error.message);
         next();
     }
-   
 
-   
+
+
 }

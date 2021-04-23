@@ -7,6 +7,6 @@ const { loginValidator  }=require('../errors/Errorschema');
 const router = express.Router();
 
 //Middleware Router
-router.route('/').get(protectedRoute,getCurrentLoggedinUser).post(loginValidator,errorsResponse,loginUser);
+router.route('/').get(protectedRoute,getCurrentLoggedinUser).post(loginUser);
 
 module.exports=router;
